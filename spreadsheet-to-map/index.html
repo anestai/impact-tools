@@ -91,11 +91,11 @@
       };
     };
     //YOUR TURN: add your Mapbox token
-    
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94LWNvbW11bml0eSIsImEiOiJja2tkN21jcjAwMG51MnBxdHAxemdueGpzIn0.e0IzLkytGq4pcGGieP8KNA'; //Mapbox token 
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5lc3RhayIsImEiOiJjbGF1YzJib3AwNHhoM25tdnhrYnhiYzBhIn0.FYCR8At8MUwaq4LfD-pJ1g'; //Mapbox token
     var map = new mapboxgl.Map({
       container: 'map', // container id
-      style: 'mapbox://styles/mapbox/streets-v11', // YOUR TURN: choose a style: https://docs.mapbox.com/api/maps/#styles
+      style: 'mapbox://styles/anestak/claubbtrz000715lehlj6njrb', // YOUR TURN: choose a style: https://docs.mapbox.com/api/maps/#styles //
       center: [-122.411, 37.785], // starting position [lng, lat]
       zoom: 10,// starting zoom
       transformRequest: transformRequest
@@ -106,6 +106,9 @@
         type: "GET",
         //YOUR TURN: Replace with csv export link
         url: 'https://docs.google.com/spreadsheets/d/1dLkr70tfAL_-U6ipad9xLF39lHmU8k-xd08uKHkLD5M/gviz/tq?tqx=out:csv&sheet=Sheet1',
+        //https://docs.google.com/spreadsheets/d/1PHjY3PfSCgKarx1n1cWHmcjzN8fl99cNMMw_Lb_MT5g/gviz/tq?tqx=out:csv&sheet=Sheet2//
+
+        //https://docs.google.com/spreadsheets/d/1dLkr70tfAL_-U6ipad9xLF39lHmU8k-xd08uKHkLD5M/gviz/tq?tqx=out:csv&sheet=Sheet1//
         dataType: "text",
         success: function (csvData) { makeGeoJSON(csvData); }
       });
@@ -129,8 +132,8 @@
                 'data': data
               },
               'paint': {
-                'circle-radius': 5,
-                'circle-color': "purple"
+                'circle-radius': 10,
+                'circle-color': "blue"
               }
             });
 
@@ -143,7 +146,10 @@
               //set popup text
               //You can adjust the values of the popup to match the headers of your CSV.
               // For example: e.features[0].properties.Name is retrieving information from the field Name in the original CSV.
-              var description = `<h3>` + e.features[0].properties.Name + `</h3>` + `<h4>` + `<b>` + `Address: ` + `</b>` + e.features[0].properties.Address + `</h4>` + `<h4>` + `<b>` + `Phone: ` + `</b>` + e.features[0].properties.Phone + `</h4>`;
+              var description = `<h4>` + e.features[0].properties.Instrument + `</h4>` +
+                  `<p2>` + `<b>` + `Institute: ` + `</b>` + e.features[0].properties.Institute + `</p2>` +
+                  `<p2>` + `<b>` + `Location: ` + `</b>` + e.features[0].properties.City + e.features[0].properties.State + e.features[0].properties.Country `</p2>`
+                  `<p2>` + `<b>` + `# of Units: ` + `</b>` + e.features[0].properties.Number `</p2>`;
 
               // Ensure that if the map is zoomed out such that multiple
               // copies of the feature are visible, the popup appears
